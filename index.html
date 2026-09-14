@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van-Hoan Hoang — applied cryptography, digital identity, trust services</title>
+<meta name="description" content="Van-Hoan Hoang, PhD. Research engineer in applied cryptography: self-sovereign identity (EUDI Wallet, eIDAS 2.0), post-quantum migration, AI agent identity, and trust services (PKI, electronic signatures).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101828;
+    --paper:#f7f6f2;
+    --slate:#5f6b7a;
+    --rule:#d9d5cc;
+    --seal:#1f6f6a;
+    --seal-soft:#e4efee;
+    --maxw:68rem;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#ece9e1; --paper:#15171c; --slate:#9aa3ad; --rule:#2c3038; --seal:#5fb3ad; --seal-soft:#1b2b2a; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Newsreader", Georgia, serif; font-size:1.125rem; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:underline; text-decoration-color:var(--seal); text-underline-offset:.18em; text-decoration-thickness:1px}
+  a:hover{color:var(--seal)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--seal); outline-offset:3px; border-radius:2px}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 1.5rem}
+
+  /* nav */
+  nav{font-family:Inter,system-ui,sans-serif; font-size:.9rem; padding:1.4rem 0; display:flex; gap:1.6rem; align-items:baseline; border-bottom:1px solid var(--rule)}
+  nav .name{font-weight:600; margin-right:auto}
+  nav a{text-decoration:none; color:var(--slate)}
+  nav a:hover{color:var(--ink)}
+
+  /* hero */
+  header.hero{padding:5.5rem 0 4rem; display:grid; grid-template-columns:1.15fr .85fr; gap:3rem; align-items:end}
+  h1{font-size:clamp(2.6rem,6vw,4.6rem); font-weight:400; line-height:1.02; letter-spacing:-.015em; margin:0 0 1.4rem}
+  h1 em{font-style:italic; font-weight:300}
+  .lede{font-size:1.25rem; max-width:34rem; margin:0; color:var(--slate)}
+  .lede b{color:var(--ink); font-weight:500}
+
+  /* the one bold thing: a trust-chain card — root → intermediate → leaf, rendered as the person's own credential */
+  .chain{font-family:Inter,system-ui,sans-serif; font-size:.85rem; border:1px solid var(--rule); background:color-mix(in srgb,var(--paper) 92%, var(--ink) 8%); padding:1.1rem 1.25rem; position:relative}
+  .chain ol{list-style:none; margin:0; padding:0}
+  .chain li{position:relative; padding:.55rem 0 .55rem 1.6rem; color:var(--slate)}
+  .chain li::before{content:""; position:absolute; left:.45rem; top:0; bottom:0; border-left:1px solid var(--rule)}
+  .chain li::after{content:""; position:absolute; left:.2rem; top:1.05rem; width:.55rem; height:.55rem; border-radius:50%; background:var(--paper); border:1.5px solid var(--slate)}
+  .chain li:first-child::before{top:1.1rem}
+  .chain li:last-child::before{bottom:auto; height:1.1rem}
+  .chain li:last-child{color:var(--ink)}
+  .chain li:last-child::after{background:var(--seal); border-color:var(--seal)}
+  .chain small{display:block; font-size:.76rem; color:var(--slate)}
+  .chain .sig{margin-top:.9rem; padding-top:.8rem; border-top:1px dashed var(--rule); display:flex; justify-content:space-between; gap:1rem; color:var(--slate); font-size:.78rem}
+  .chain .sig span:last-child{color:var(--seal); font-weight:600}
+
+  /* sections */
+  section{padding:3.5rem 0; border-top:1px solid var(--rule)}
+  h2{font-size:1.75rem; font-weight:400; letter-spacing:-.01em; margin:0 0 1.6rem}
+  .two{display:grid; grid-template-columns:14rem 1fr; gap:2rem}
+  .two h2{margin:0; position:sticky; top:1.5rem; align-self:start}
+  p{margin:0 0 1rem; max-width:40rem}
+
+  .areas{display:grid; grid-template-columns:repeat(2,1fr); gap:0 2.5rem}
+  .area{padding:1.2rem 0; border-top:1px solid var(--rule)}
+  .area:nth-child(-n+2){border-top:none; padding-top:0}
+  .area h3{font-size:1.25rem; font-weight:500; margin:0 0 .35rem}
+  .area p{font-size:1.02rem; color:var(--slate); margin:0}
+  .area .stack{font-family:Inter,system-ui,sans-serif; font-size:.78rem; color:var(--slate); margin-top:.6rem; display:flex; flex-wrap:wrap; gap:.35rem}
+  .area .stack span{border:1px solid var(--rule); padding:.15rem .5rem; border-radius:999px}
+
+  .pubs{margin:0; padding:0; list-style:none}
+  .pubs li{padding:1rem 0; border-top:1px solid var(--rule)}
+  .pubs li:first-child{border-top:none; padding-top:0}
+  .pubs .t{font-weight:500}
+  .pubs .m{font-family:Inter,system-ui,sans-serif; font-size:.82rem; color:var(--slate); margin-top:.25rem}
+  .note{background:var(--seal-soft); border-left:3px solid var(--seal); padding:.8rem 1rem; font-size:1rem; margin-top:1.4rem}
+
+  .links{font-family:Inter,system-ui,sans-serif; font-size:.95rem; display:flex; flex-wrap:wrap; gap:.6rem 1.6rem; padding:0; margin:0; list-style:none}
+  footer{padding:2.5rem 0 3rem; border-top:1px solid var(--rule); font-family:Inter,system-ui,sans-serif; font-size:.82rem; color:var(--slate); display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem}
+
+  @media (max-width:52rem){
+    header.hero{grid-template-columns:1fr; padding:3.5rem 0 3rem; gap:2rem}
+    .two{grid-template-columns:1fr; gap:1rem}
+    .two h2{position:static}
+    .areas{grid-template-columns:1fr}
+    .area:nth-child(2){border-top:1px solid var(--rule); padding-top:1.2rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <span class="name">Van-Hoan Hoang</span>
+  <a href="#work">Work</a>
+  <a href="#research">Research</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header class="hero">
+  <div>
+    <h1>Applied cryptography for <em>digital identity and trust services.</em></h1>
+    <p class="lede">Research engineer at <b>Eviden (Atos)</b>, Innovation team, France. PhD in cryptography. I work on the EUDI Wallet stack, PKI and electronic signatures, and post-quantum migration.</p>
+  </div>
+
+  <aside class="chain" aria-label="Trust chain">
+    <ol>
+      <li>Trust anchor<small>eIDAS 2.0 · EU Digital Identity framework</small></li>
+      <li>Issuer<small>Qualified trust service provider · X.509 · QES</small></li>
+      <li>Credential<small>SD-JWT VC · mdoc (ISO 18013-5) · OID4VCI / OID4VP</small></li>
+      <li>Holder: Van-Hoan Hoang<small>PhD · Research engineer · Eviden</small></li>
+    </ol>
+    <div class="sig"><span>sig-alg</span><span>ML-DSA-65 (hybrid ECDSA-P256)</span></div>
+  </aside>
+</header>
+
+<section id="work" class="two">
+  <h2>What I work on</h2>
+  <div class="areas">
+    <div class="area">
+      <h3>Self-sovereign identity</h3>
+      <p>Backend of an EUDI Wallet stack: credential issuance and presentation, trust lists, and interoperability testing with the EU reference implementation and Large-Scale Pilots.</p>
+      <div class="stack"><span>eIDAS 2.0</span><span>OID4VCI</span><span>OID4VP</span><span>SD-JWT VC</span><span>mdoc</span></div>
+    </div>
+    <div class="area">
+      <h3>Post-quantum migration</h3>
+      <p>Migration of PKI and signature systems to ML-DSA and ML-KEM: hybrid certificates, crypto-agility, and cryptographic inventories (CBOM) for compliance evaluation.</p>
+      <div class="stack"><span>ML-DSA</span><span>ML-KEM</span><span>hybrid X.509</span><span>CycloneDX CBOM</span></div>
+    </div>
+    <div class="area">
+      <h3>AI agent identity</h3>
+      <p>Verifiable identity for AI agents: workload identity, delegation from humans to agents and between agents, and audit evidence across the delegation chain.</p>
+      <div class="stack"><span>SPIFFE / SPIRE</span><span>OIDC</span><span>MCP</span><span>delegation tokens</span></div>
+    </div>
+    <div class="area">
+      <h3>Trust services</h3>
+      <p>Qualified PKI and electronic signatures: certificate lifecycle, signing and validation services, and conformance with ETSI and eIDAS requirements.</p>
+      <div class="stack"><span>X.509</span><span>QES / AdES</span><span>ETSI</span><span>Bouncy Castle</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="two">
+  <h2>Research</h2>
+  <div>
+    <p>PhD at La Rochelle Université (L3i lab, 2022), done in partnership with Oodrive. Topic: securing access and data exchange in heterogeneous cloud ecosystems, covering password-authenticated key exchange, privacy-preserving access control, and user-side encryption for outsourced storage.</p>
+
+    <ul class="pubs">
+      <li>
+        <div class="t"><a href="https://www.theses.fr/2022LAROS009">Securing data access and exchanges in a heterogeneous ecosystem: an adaptive and context-sensitive approach</a></div>
+        <div class="m">PhD thesis, La Rochelle Université, 2022. Supervised by Yacine Ghamri-Doudane.</div>
+      </li>
+    </ul>
+
+    <p class="note">Full list on <a href="https://scholar.google.com/citations?user=VcGzIqoAAAAJ">Google Scholar</a> and <a href="https://www.researchgate.net/profile/Van-Hoan-Hoang">ResearchGate</a>.</p>
+  </div>
+</section>
+
+<section id="contact" class="two">
+  <h2>Elsewhere</h2>
+  <div>
+    <p>In my free time I build EdTech products for IELTS and SAT preparation. I speak Vietnamese, French, and English.</p>
+    <ul class="links">
+      <li><a href="https://github.com/vanhoanHoang">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/hoan-hoang/">LinkedIn</a></li>
+      <li><a href="https://scholar.google.com/citations?user=VcGzIqoAAAAJ">Scholar</a></li>
+      <li><a href="mailto:hoanghoan.clc@gmail.com">Email</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <span>Van-Hoan Hoang</span>
+  <span>Paris area, France</span>
+</footer>
+
+</div>
+</body>
+</html>

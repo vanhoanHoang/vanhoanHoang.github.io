@@ -46,6 +46,7 @@
   h1 em{font-style:italic; font-weight:300}
   .lede{font-size:1.25rem; max-width:34rem; margin:0; color:var(--slate)}
   .lede b{color:var(--ink); font-weight:500}
+  .portrait{width:5.5rem; height:5.5rem; border-radius:50%; object-fit:cover; display:block; margin:0 0 1.6rem; border:1px solid var(--rule)}
 
   /* the one bold thing: a trust-chain card — root → intermediate → leaf, rendered as the person's own credential */
   .chain{font-family:Inter,system-ui,sans-serif; font-size:.85rem; border:1px solid var(--rule); background:color-mix(in srgb,var(--paper) 92%, var(--ink) 8%); padding:1.1rem 1.25rem; position:relative}
@@ -107,6 +108,7 @@
 
 <header class="hero">
   <div>
+    <img class="portrait" src="photo.jpg" alt="Van-Hoan Hoang">
     <h1>Applied cryptography for <em>digital identity and trust services.</em></h1>
     <p class="lede">Research engineer at <b>Eviden (Atos)</b>, Innovation team, France. PhD in cryptography. I work on the EUDI Wallet stack, PKI and electronic signatures, and post-quantum migration.</p>
   </div>

@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Van-Hoan Hoang — applied cryptography, digital identity, trust services</title>
 <meta name="description" content="Van-Hoan Hoang, PhD. Research engineer in applied cryptography: self-sovereign identity (EUDI Wallet, eIDAS 2.0), post-quantum migration, AI agent identity, and trust services (PKI, electronic signatures).">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,7 +48,11 @@
   h1 em{font-style:italic; font-weight:300}
   .lede{font-size:1.25rem; max-width:34rem; margin:0; color:var(--slate)}
   .lede b{color:var(--ink); font-weight:500}
-  .portrait{width:5.5rem; height:5.5rem; border-radius:50%; object-fit:cover; display:block; margin:0 0 1.6rem; border:1px solid var(--rule)}
+  .portrait{width:3.25rem; height:3.25rem; border-radius:50%; object-fit:cover; flex:none; border:1px solid var(--rule)}
+  .chain li.holder{display:flex; align-items:center; gap:.8rem; padding-top:.7rem}
+  .chain li.holder span{display:block}
+  .chain li.holder::before{height:50%}
+  .chain li.holder::after{top:50%; margin-top:-.28rem}
 
   /* the one bold thing: a trust-chain card — root → intermediate → leaf, rendered as the person's own credential */
   .chain{font-family:Inter,system-ui,sans-serif; font-size:.85rem; border:1px solid var(--rule); background:color-mix(in srgb,var(--paper) 92%, var(--ink) 8%); padding:1.1rem 1.25rem; position:relative}
@@ -108,7 +114,6 @@
 
 <header class="hero">
   <div>
-    <img class="portrait" src="photo.jpg" alt="Van-Hoan Hoang">
     <h1>Applied cryptography for <em>digital identity and trust services.</em></h1>
     <p class="lede">Research engineer at <b>Eviden (Atos)</b>, Innovation team, France. PhD in cryptography. I work on the EUDI Wallet stack, PKI and electronic signatures, and post-quantum migration.</p>
   </div>
@@ -118,7 +123,10 @@
       <li>Trust anchor<small>eIDAS 2.0 · EU Digital Identity framework</small></li>
       <li>Issuer<small>Qualified trust service provider · X.509 · QES</small></li>
       <li>Credential<small>SD-JWT VC · mdoc (ISO 18013-5) · OID4VCI / OID4VP</small></li>
-      <li>Holder: Van-Hoan Hoang<small>PhD · Research engineer · Eviden</small></li>
+      <li class="holder">
+        <img class="portrait" src="photo.jpg" alt="Van-Hoan Hoang">
+        <span>Holder: Van-Hoan Hoang<small>PhD · Research engineer · Eviden</small></span>
+      </li>
     </ol>
     <div class="sig"><span>sig-alg</span><span>ML-DSA-65 (hybrid ECDSA-P256)</span></div>
   </aside>
